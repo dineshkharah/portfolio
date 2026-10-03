@@ -49,15 +49,21 @@ function ExternalLink({ href, children }) {
 function Decision({ decision }) {
   return (
     <details className="group border-b border-line last:border-b-0">
-      <summary className="flex cursor-pointer list-none items-start gap-3 px-4 py-3.5 [&::-webkit-details-marker]:hidden">
+      <summary className="group/row relative flex cursor-pointer list-none items-start gap-3 px-4 py-3.5 transition-colors duration-200 hover:bg-line/30 motion-reduce:transition-none [&::-webkit-details-marker]:hidden">
+        <span
+          aria-hidden="true"
+          className="absolute inset-y-0 left-0 w-0.5 origin-center scale-y-0 bg-accent transition-transform duration-200 group-hover/row:scale-y-100 group-open:scale-y-100 motion-reduce:transition-none"
+        />
         <svg
           aria-hidden="true"
           viewBox="0 0 10 10"
-          className="mt-2 h-2.5 w-2.5 shrink-0 fill-accent transition-transform duration-150 group-open:rotate-90 motion-reduce:transition-none"
+          className="mt-2 h-2.5 w-2.5 shrink-0 fill-accent transition-transform duration-200 group-hover/row:translate-x-0.5 group-open:translate-x-0 group-open:rotate-90 motion-reduce:transition-none"
         >
           <path d="M2 0l6 5-6 5z" />
         </svg>
-        <span className="transition-colors group-hover:text-accent">{decision.title}</span>
+        <span className="transition-colors duration-200 group-hover/row:text-accent">
+          {decision.title}
+        </span>
       </summary>
       <div className="px-4 pb-5 pl-[2.4rem] text-muted">
         <p>{decision.detail}</p>
