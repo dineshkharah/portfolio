@@ -28,7 +28,7 @@ export const projects = [
     year: '2025',
     role: 'Solo',
     status: 'Live',
-    problem: 'Tracking money by hand fails at the typing, not the tracking. I built the form first, then watched myself skip it, and once there are gaps the totals are fiction. So everything since has gone at the entry step rather than the charts: photograph a bill, one Gemini call fills it in, you check the values before they save. Scan Bill sits above Add Manually in the add menu for that reason. Nineteen months in, my own database holds 46 rows, which is the honest measure of how much that fixed, and why the next piece reads bank SMS instead.',
+    problem: 'Tracking money by hand fails at the typing, not the tracking. Building the form is the easy half, keeping it fed is the half that decides whether the totals mean anything, and once there are gaps they are fiction. So everything since has gone at the entry step rather than the charts: photograph a bill, one Gemini call fills it in, you check the values before they save. Scan Bill sits above Add Manually in the add menu for that reason. Nineteen months in, my own database holds 46 rows, which is the honest measure of how much that fixed, and why the next piece reads bank SMS instead.',
     decisions: [
       {
         title: 'Field level encryption, and the aggregation it made impossible',
