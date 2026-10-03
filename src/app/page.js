@@ -5,7 +5,6 @@ import {
   experience,
   education,
   recognition,
-  colophon,
   site,
 } from "@/content/site";
 
@@ -339,42 +338,12 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className={`${container} border-t border-line py-14 md:py-24`}>
-        <SectionHeading number="07">{colophon.title}</SectionHeading>
-
-        <ul role="list" className="space-y-4">
-          {colophon.points.map((point, i) => (
-            <li key={i} className="flex gap-3 text-muted">
-              <span
-                aria-hidden="true"
-                className="mt-[0.7rem] h-1 w-1 shrink-0 rounded-full bg-accent"
-              />
-              <span>{point}</span>
-            </li>
-          ))}
-        </ul>
-
-        <ul
-          role="list"
-          className="mt-8 grid grid-cols-2 gap-2 font-mono text-xs sm:grid-cols-4"
-        >
-          {colophon.lighthouse.scores.map((score) => (
-            <li
-              key={score.label}
-              className="flex items-baseline justify-between gap-2 rounded border border-line bg-raised px-3 py-2"
-            >
-              <span className="text-muted">{score.label}</span>
-              <span className="text-base text-accent">{score.value}</span>
-            </li>
-          ))}
-        </ul>
-
-        <p className="mt-3 font-mono text-xs text-muted">{colophon.lighthouse.note}</p>
-
-        <p className="mt-10 font-mono text-xs text-muted">
-          {colophon.footer}{" "}
-          <ExternalLink href={site.repo}>Source</ExternalLink>
-        </p>
+      <footer className="border-t border-line">
+        <div className={`${container} py-10`}>
+          <p className="font-mono text-xs text-muted">
+            {site.footer} <ExternalLink href={site.repo}>Source</ExternalLink>
+          </p>
+        </div>
       </footer>
     </>
   );
