@@ -251,10 +251,32 @@ export const recognition = [
   'Solo National Hackathon: built a drag-and-drop no-code website builder.',
 ]
 
+export const colophon = {
+  title: 'How this site is built',
+  points: [
+    'The whole page is rendered to static HTML at build time. No server does any work when someone opens it, and nothing is fetched in the browser.',
+    'It ships no client side JavaScript of its own. Every section is a server component, so none of this text is put on screen by code running in your browser.',
+    'The expandable decisions are native details and summary elements. They cost no JavaScript, work with a keyboard by default, and leave their text in the page, so search engines read it whether it is open or shut.',
+    'Type is the system font stack. There are no web fonts to download and nothing reflows when they arrive, which is why Cumulative Layout Shift is a flat zero.',
+    'Semantic landmarks and a heading order that never skips a level. Every colour pair on the page was checked against WCAG AA, and the tightest one measures 5.38 to 1.',
+    'The sitemap, the robots file and the social share image are generated at build time rather than written by hand.',
+  ],
+  lighthouse: {
+    scores: [
+      { label: 'Performance', value: 100 },
+      { label: 'Accessibility', value: 100 },
+      { label: 'Best Practices', value: 100 },
+      { label: 'SEO', value: 100 },
+    ],
+    note: 'Lighthouse 13.5.0, mobile, median of four runs against the production build.',
+  },
+  footer: 'Built with Next.js and Tailwind CSS.',
+}
+
 export const site = {
   url: 'https://dineshkharah.vercel.app',
+  repo: 'https://github.com/dineshkharah/portfolio',
   title: 'Dinesh Kharah, Full Stack Engineer',
   description:
     'Full stack engineer in Mumbai. Deployed applications in React and Node, including a finance app with field level encryption and an LLM agent over its data.',
-  ogImage: '/og.png',
 }

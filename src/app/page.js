@@ -5,6 +5,8 @@ import {
   experience,
   education,
   recognition,
+  colophon,
+  site,
 } from "@/content/site";
 
 const container = "mx-auto w-full max-w-page px-5 sm:px-6";
@@ -75,9 +77,9 @@ function Decision({ decision }) {
         >
           <path d="M2 0l6 5-6 5z" />
         </svg>
-        <span className="transition-colors duration-200 group-hover/row:text-accent">
+        <h4 className="transition-colors duration-200 group-hover/row:text-accent">
           {decision.title}
-        </span>
+        </h4>
       </summary>
       <div className="px-4 pb-5 pl-[2.4rem] text-muted">
         <p>{decision.detail}</p>
@@ -119,7 +121,11 @@ function Project({ project, isFirst }) {
         <p className="mt-4 border-l-2 border-accent/40 pl-4 text-muted">{project.problem}</p>
       ) : null}
 
-      <ul className="mt-5 flex flex-wrap gap-2 font-mono text-xs text-muted">
+      <ul
+        role="list"
+        aria-label={`${project.name} stack`}
+        className="mt-5 flex flex-wrap gap-2 font-mono text-xs text-muted"
+      >
         {project.stack.map((tech) => (
           <li key={tech} className="rounded border border-line bg-raised px-2 py-1">
             {tech}
@@ -127,7 +133,10 @@ function Project({ project, isFirst }) {
         ))}
       </ul>
 
-      <ul className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-sm">
+      <ul
+        role="list"
+        className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-sm"
+      >
         {project.links.live ? (
           <li>
             <ExternalLink href={project.links.live}>Live demo</ExternalLink>
@@ -184,7 +193,7 @@ export default function Home() {
         <div className={`${container} flex items-center justify-between gap-4 py-5`}>
           <span className="font-mono text-sm">{profile.name}</span>
           <nav aria-label="Sections">
-            <ul className="flex items-center gap-4 sm:gap-6">
+            <ul role="list" className="flex items-center gap-4 sm:gap-6">
               {navLinks.map((link) => (
                 <li key={link.href}>
                   <a
@@ -223,7 +232,10 @@ export default function Home() {
             {profile.availability}
           </p>
 
-          <ul className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-sm">
+          <ul
+            role="list"
+            className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-sm"
+          >
             <li>
               <a href={`mailto:${profile.email}`} className={underline}>
                 Email
@@ -255,7 +267,7 @@ export default function Home() {
                 className="grid gap-3 py-5 first:pt-0 last:pb-0 sm:grid-cols-[7rem_1fr] sm:gap-6"
               >
                 <h3 className="font-mono text-sm text-muted">{group.group}</h3>
-                <ul className="flex flex-wrap gap-2">
+                <ul role="list" className="flex flex-wrap gap-2">
                   {group.items.map((item) => (
                     <li
                       key={item.name}
@@ -273,7 +285,7 @@ export default function Home() {
 
         <section id="experience" className={section}>
           <SectionHeading number="03">Experience</SectionHeading>
-          <ul className="divide-y divide-line">
+          <ul role="list" className="divide-y divide-line">
             {experience.map((entry) => (
               <TimelineEntry key={`${entry.title}-${entry.period}`} entry={entry} />
             ))}
@@ -282,7 +294,7 @@ export default function Home() {
 
         <section id="education" className={section}>
           <SectionHeading number="04">Education</SectionHeading>
-          <ul className="divide-y divide-line">
+          <ul role="list" className="divide-y divide-line">
             {education.map((entry) => (
               <TimelineEntry key={`${entry.title}-${entry.period}`} entry={entry} />
             ))}
@@ -291,7 +303,7 @@ export default function Home() {
 
         <section id="recognition" className={section}>
           <SectionHeading number="05">Recognition</SectionHeading>
-          <ul className="space-y-4">
+          <ul role="list" className="space-y-4">
             {recognition.map((item, i) => (
               <li key={i} className="flex gap-3">
                 <span
@@ -314,7 +326,10 @@ export default function Home() {
               {profile.email}
             </a>
           </p>
-          <ul className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-sm">
+          <ul
+            role="list"
+            className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-sm"
+          >
             {profileLinks.map((link) => (
               <li key={link.label}>
                 <ProfileLink link={link} />
@@ -323,6 +338,44 @@ export default function Home() {
           </ul>
         </section>
       </main>
+
+      <footer className={`${container} border-t border-line py-14 md:py-24`}>
+        <SectionHeading number="07">{colophon.title}</SectionHeading>
+
+        <ul role="list" className="space-y-4">
+          {colophon.points.map((point, i) => (
+            <li key={i} className="flex gap-3 text-muted">
+              <span
+                aria-hidden="true"
+                className="mt-[0.7rem] h-1 w-1 shrink-0 rounded-full bg-accent"
+              />
+              <span>{point}</span>
+            </li>
+          ))}
+        </ul>
+
+        <ul
+          role="list"
+          className="mt-8 grid grid-cols-2 gap-2 font-mono text-xs sm:grid-cols-4"
+        >
+          {colophon.lighthouse.scores.map((score) => (
+            <li
+              key={score.label}
+              className="flex items-baseline justify-between gap-2 rounded border border-line bg-raised px-3 py-2"
+            >
+              <span className="text-muted">{score.label}</span>
+              <span className="text-base text-accent">{score.value}</span>
+            </li>
+          ))}
+        </ul>
+
+        <p className="mt-3 font-mono text-xs text-muted">{colophon.lighthouse.note}</p>
+
+        <p className="mt-10 font-mono text-xs text-muted">
+          {colophon.footer}{" "}
+          <ExternalLink href={site.repo}>Source</ExternalLink>
+        </p>
+      </footer>
     </>
   );
 }
