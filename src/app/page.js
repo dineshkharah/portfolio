@@ -1,7 +1,7 @@
 import { profile, projects } from "@/content/site";
 
 const container = "mx-auto w-full max-w-page px-5 sm:px-6";
-const section = `${container} border-t border-raised py-14 md:py-24`;
+const section = `${container} border-t border-line py-14 md:py-24`;
 
 const navLinks = [
   { href: "#projects", label: "Projects" },
@@ -18,10 +18,16 @@ const heroLinks = [
 
 function SectionHeading({ number, children }) {
   return (
-    <h2 className="mb-10 flex items-baseline gap-3 text-2xl font-semibold tracking-tight">
-      <span className="font-mono text-sm font-normal text-accent">{number}</span>
-      {children}
-    </h2>
+    <div className="mb-10">
+      <h2 className="flex items-baseline gap-3 text-2xl font-semibold tracking-tight">
+        <span className="font-mono text-sm font-normal text-accent">{number}</span>
+        {children}
+      </h2>
+      <div
+        aria-hidden="true"
+        className="mt-3 h-px bg-gradient-to-r from-accent/50 via-line to-transparent"
+      />
+    </div>
   );
 }
 
@@ -31,7 +37,7 @@ function ExternalLink({ href, children }) {
       href={href}
       target="_blank"
       rel="noreferrer"
-      className="underline decoration-muted underline-offset-4 transition-colors hover:text-accent hover:decoration-accent"
+      className="underline decoration-line underline-offset-4 transition-colors hover:text-accent hover:decoration-accent"
     >
       {children}
       <span aria-hidden="true"> ↗</span>
@@ -42,8 +48,8 @@ function ExternalLink({ href, children }) {
 
 function Decision({ decision }) {
   return (
-    <details className="group border-t border-raised">
-      <summary className="flex cursor-pointer list-none items-start gap-3 py-3 [&::-webkit-details-marker]:hidden">
+    <details className="group border-b border-line last:border-b-0">
+      <summary className="flex cursor-pointer list-none items-start gap-3 px-4 py-3.5 [&::-webkit-details-marker]:hidden">
         <svg
           aria-hidden="true"
           viewBox="0 0 10 10"
@@ -53,7 +59,7 @@ function Decision({ decision }) {
         </svg>
         <span className="transition-colors group-hover:text-accent">{decision.title}</span>
       </summary>
-      <div className="pb-5 pl-[1.4rem] text-muted">
+      <div className="px-4 pb-5 pl-[2.4rem] text-muted">
         <p>{decision.detail}</p>
         {decision.seeAlso ? (
           <p className="mt-3">
@@ -70,39 +76,38 @@ function Decision({ decision }) {
   );
 }
 
-function Project({ project }) {
-  const meta = [project.year, project.role, project.status].filter(Boolean);
-
+function Project({ project, isFirst }) {
   return (
-    <article id={project.slug} className="scroll-mt-8">
+    <article
+      id={project.slug}
+      className={isFirst ? "scroll-mt-8" : "scroll-mt-8 border-t border-line pt-12"}
+    >
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
         <h3 className="text-xl font-semibold tracking-tight">{project.name}</h3>
-        <p className="font-mono text-xs text-muted">
-          {meta.map((item, i) => (
-            <span key={item}>
-              {i > 0 ? <span aria-hidden="true"> · </span> : null}
-              {item}
-            </span>
-          ))}
+        <p className="font-mono text-xs">
+          <span className="text-muted">{project.year}</span>
+          <span aria-hidden="true" className="text-muted/40"> · </span>
+          <span className="text-muted">{project.role}</span>
+          <span aria-hidden="true" className="text-muted/40"> · </span>
+          <span className="text-accent">{project.status}</span>
         </p>
       </div>
 
       <p className="mt-3">{project.blurb}</p>
 
-      {project.problem ? <p className="mt-3 text-muted">{project.problem}</p> : null}
+      {project.problem ? (
+        <p className="mt-4 border-l-2 border-accent/40 pl-4 text-muted">{project.problem}</p>
+      ) : null}
 
-      <ul className="mt-4 flex flex-wrap gap-y-1 font-mono text-xs text-muted">
+      <ul className="mt-5 flex flex-wrap gap-2 font-mono text-xs text-muted">
         {project.stack.map((tech) => (
-          <li
-            key={tech}
-            className="after:mx-2 after:text-muted/40 after:content-['·'] last:after:content-none"
-          >
+          <li key={tech} className="rounded border border-line bg-raised px-2 py-1">
             {tech}
           </li>
         ))}
       </ul>
 
-      <ul className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-sm">
+      <ul className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-sm">
         {project.links.live ? (
           <li>
             <ExternalLink href={project.links.live}>Live demo</ExternalLink>
@@ -123,7 +128,7 @@ function Project({ project }) {
         ) : null}
       </ul>
 
-      <div className="mt-6">
+      <div className="mt-6 overflow-hidden rounded-lg border border-line bg-raised">
         {project.decisions.map((decision) => (
           <Decision key={decision.title} decision={decision} />
         ))}
@@ -142,7 +147,7 @@ export default function Home() {
         Skip to content
       </a>
 
-      <header className="border-b border-raised">
+      <header className="border-b border-line">
         <div className={`${container} flex items-center justify-between gap-4 py-5`}>
           <span className="font-mono text-sm">{profile.name}</span>
           <nav aria-label="Sections">
@@ -180,7 +185,10 @@ export default function Home() {
             ))}
           </div>
 
-          <p className="mt-8 font-mono text-sm text-accent">{profile.availability}</p>
+          <p className="mt-8 flex items-center gap-2.5 font-mono text-sm text-accent">
+            <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent" />
+            {profile.availability}
+          </p>
 
           <ul className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2">
             {heroLinks.map((link) => (
@@ -192,7 +200,7 @@ export default function Home() {
                 ) : (
                   <a
                     href={link.href}
-                    className="font-mono text-sm underline decoration-muted underline-offset-4 transition-colors hover:text-accent hover:decoration-accent"
+                    className="font-mono text-sm underline decoration-line underline-offset-4 transition-colors hover:text-accent hover:decoration-accent"
                   >
                     {link.label}
                   </a>
@@ -204,9 +212,9 @@ export default function Home() {
 
         <section id="projects" className={section}>
           <SectionHeading number="01">Projects</SectionHeading>
-          <div className="space-y-14">
-            {projects.map((project) => (
-              <Project key={project.slug} project={project} />
+          <div className="space-y-12">
+            {projects.map((project, i) => (
+              <Project key={project.slug} project={project} isFirst={i === 0} />
             ))}
           </div>
         </section>

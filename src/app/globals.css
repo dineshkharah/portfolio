@@ -6,6 +6,7 @@
 @theme {
   --color-ground: #0a0a0b;
   --color-raised: #141416;
+  --color-line: #26262c;
   --color-ink: #e8e8ea;
   --color-muted: #8a8a93;
   --color-accent: #fbbf24;
