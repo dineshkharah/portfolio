@@ -28,7 +28,7 @@ const underline =
 
 function SectionHeading({ number, children }) {
   return (
-    <div className="reveal mb-10">
+    <div className="mb-10">
       <h2 className="flex items-baseline gap-3 text-2xl font-semibold tracking-tight">
         <span className="font-mono text-sm font-normal text-accent">{number}</span>
         {children}
@@ -101,9 +101,7 @@ function Project({ project, isFirst }) {
   return (
     <article
       id={project.slug}
-      className={
-        isFirst ? "reveal scroll-mt-8" : "reveal scroll-mt-8 border-t border-line pt-12"
-      }
+      className={isFirst ? "scroll-mt-8" : "scroll-mt-8 border-t border-line pt-12"}
     >
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
         <h3 className="text-xl font-semibold tracking-tight">{project.name}</h3>
@@ -169,7 +167,7 @@ function Project({ project, isFirst }) {
 
 function TimelineEntry({ entry }) {
   return (
-    <li className="reveal py-5 first:pt-0 last:pb-0">
+    <li className="py-5 first:pt-0 last:pb-0">
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
         <h3 className="font-semibold tracking-tight">{entry.title}</h3>
         <p className="font-mono text-xs text-muted">{entry.period}</p>
@@ -265,7 +263,7 @@ export default function Home() {
             {skills.map((group) => (
               <div
                 key={group.group}
-                className="reveal grid gap-3 py-5 first:pt-0 last:pb-0 sm:grid-cols-[7rem_1fr] sm:gap-6"
+                className="grid gap-3 py-5 first:pt-0 last:pb-0 sm:grid-cols-[7rem_1fr] sm:gap-6"
               >
                 <h3 className="font-mono text-sm text-muted">{group.group}</h3>
                 <ul role="list" className="flex flex-wrap gap-2">
@@ -306,7 +304,7 @@ export default function Home() {
           <SectionHeading number="05">Recognition</SectionHeading>
           <ul role="list" className="space-y-4">
             {recognition.map((item, i) => (
-              <li key={i} className="reveal flex gap-3">
+              <li key={i} className="flex gap-3">
                 <span
                   aria-hidden="true"
                   className="mt-[0.7rem] h-1 w-1 shrink-0 rounded-full bg-accent"
@@ -319,7 +317,6 @@ export default function Home() {
 
         <section id="contact" className={section}>
           <SectionHeading number="06">Contact</SectionHeading>
-          <div className="reveal">
           <p className="text-muted">
             {profile.availability}. Based in {profile.location}.
           </p>
@@ -338,13 +335,12 @@ export default function Home() {
               </li>
             ))}
           </ul>
-          </div>
         </section>
       </main>
 
       <footer className="border-t border-line">
         <div className={`${container} py-10`}>
-          <p className="reveal font-mono text-xs text-muted">
+          <p className="font-mono text-xs text-muted">
             {site.footer} <ExternalLink href={site.repo}>Source</ExternalLink>
           </p>
         </div>
