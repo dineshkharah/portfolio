@@ -15,12 +15,12 @@ export default function OpengraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          backgroundColor: "#0a0a0b",
+          backgroundColor: "#0f1115",
           padding: "0 90px",
           fontFamily: "sans-serif",
         }}
       >
-        <div style={{ display: "flex", fontSize: 30, color: "#8a8a93", letterSpacing: 2 }}>
+        <div style={{ display: "flex", fontSize: 30, color: "#959ba6", letterSpacing: 2 }}>
           {profile.role.toUpperCase()}
         </div>
         <div
@@ -45,7 +45,7 @@ export default function OpengraphImage() {
           }}
         />
         <div style={{ display: "flex", fontSize: 42, color: "#e8e8ea" }}>{profile.tagline}</div>
-        <div style={{ display: "flex", fontSize: 26, color: "#8a8a93", marginTop: 52 }}>
+        <div style={{ display: "flex", fontSize: 26, color: "#959ba6", marginTop: 52 }}>
           {site.url.replace("https://", "")}
         </div>
       </div>

@@ -4,11 +4,11 @@
    custom property below becomes a utility class, so --color-ground gives
    bg-ground and --container-page gives max-w-page. */
 @theme {
-  --color-ground: #0a0a0b;
-  --color-raised: #141416;
-  --color-line: #26262c;
+  --color-ground: #0f1115;
+  --color-raised: #1f242d;
+  --color-line: #333a45;
   --color-ink: #e8e8ea;
-  --color-muted: #8a8a93;
+  --color-muted: #959ba6;
   --color-accent: #fbbf24;
   --color-focus: #7dd3fc;
 
