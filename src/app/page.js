@@ -1,4 +1,11 @@
-import { profile, projects } from "@/content/site";
+import {
+  profile,
+  projects,
+  skills,
+  experience,
+  education,
+  recognition,
+} from "@/content/site";
 
 const container = "mx-auto w-full max-w-page px-5 sm:px-6";
 const section = `${container} border-t border-line py-14 md:py-24`;
@@ -9,12 +16,14 @@ const navLinks = [
   { href: "#contact", label: "Contact" },
 ];
 
-const heroLinks = [
-  { href: `mailto:${profile.email}`, label: "Email", external: false },
+const profileLinks = [
   { href: profile.links.github, label: "GitHub", external: true },
   { href: profile.links.linkedin, label: "LinkedIn", external: true },
   { href: profile.links.resume, label: "Resume", external: false },
 ];
+
+const underline =
+  "underline decoration-line underline-offset-4 transition-colors hover:text-accent hover:decoration-accent";
 
 function SectionHeading({ number, children }) {
   return (
@@ -33,15 +42,20 @@ function SectionHeading({ number, children }) {
 
 function ExternalLink({ href, children }) {
   return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noreferrer"
-      className="underline decoration-line underline-offset-4 transition-colors hover:text-accent hover:decoration-accent"
-    >
+    <a href={href} target="_blank" rel="noreferrer" className={underline}>
       {children}
       <span aria-hidden="true"> ↗</span>
       <span className="sr-only"> (opens in a new tab)</span>
+    </a>
+  );
+}
+
+function ProfileLink({ link }) {
+  return link.external ? (
+    <ExternalLink href={link.href}>{link.label}</ExternalLink>
+  ) : (
+    <a href={link.href} className={underline}>
+      {link.label}
     </a>
   );
 }
@@ -143,6 +157,19 @@ function Project({ project, isFirst }) {
   );
 }
 
+function TimelineEntry({ entry }) {
+  return (
+    <li className="py-5 first:pt-0 last:pb-0">
+      <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+        <h3 className="font-semibold tracking-tight">{entry.title}</h3>
+        <p className="font-mono text-xs text-muted">{entry.period}</p>
+      </div>
+      <p className="mt-1 text-muted">{entry.org}</p>
+      {entry.note ? <p className="mt-2 text-muted">{entry.note}</p> : null}
+    </li>
+  );
+}
+
 export default function Home() {
   return (
     <>
@@ -196,21 +223,15 @@ export default function Home() {
             {profile.availability}
           </p>
 
-          <ul className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2">
-            {heroLinks.map((link) => (
+          <ul className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-sm">
+            <li>
+              <a href={`mailto:${profile.email}`} className={underline}>
+                Email
+              </a>
+            </li>
+            {profileLinks.map((link) => (
               <li key={link.label}>
-                {link.external ? (
-                  <span className="font-mono text-sm">
-                    <ExternalLink href={link.href}>{link.label}</ExternalLink>
-                  </span>
-                ) : (
-                  <a
-                    href={link.href}
-                    className="font-mono text-sm underline decoration-line underline-offset-4 transition-colors hover:text-accent hover:decoration-accent"
-                  >
-                    {link.label}
-                  </a>
-                )}
+                <ProfileLink link={link} />
               </li>
             ))}
           </ul>
@@ -223,6 +244,83 @@ export default function Home() {
               <Project key={project.slug} project={project} isFirst={i === 0} />
             ))}
           </div>
+        </section>
+
+        <section id="skills" className={section}>
+          <SectionHeading number="02">Skills</SectionHeading>
+          <div className="divide-y divide-line">
+            {skills.map((group) => (
+              <div
+                key={group.group}
+                className="grid gap-3 py-5 first:pt-0 last:pb-0 sm:grid-cols-[7rem_1fr] sm:gap-6"
+              >
+                <h3 className="font-mono text-sm text-muted">{group.group}</h3>
+                <ul className="flex flex-wrap gap-2">
+                  {group.items.map((item) => (
+                    <li
+                      key={item.name}
+                      className="rounded border border-line bg-raised px-2 py-1 font-mono text-xs"
+                    >
+                      {item.name}
+                      <span className="ml-1.5 text-muted">{item.level}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section id="experience" className={section}>
+          <SectionHeading number="03">Experience</SectionHeading>
+          <ul className="divide-y divide-line">
+            {experience.map((entry) => (
+              <TimelineEntry key={`${entry.title}-${entry.period}`} entry={entry} />
+            ))}
+          </ul>
+        </section>
+
+        <section id="education" className={section}>
+          <SectionHeading number="04">Education</SectionHeading>
+          <ul className="divide-y divide-line">
+            {education.map((entry) => (
+              <TimelineEntry key={`${entry.title}-${entry.period}`} entry={entry} />
+            ))}
+          </ul>
+        </section>
+
+        <section id="recognition" className={section}>
+          <SectionHeading number="05">Recognition</SectionHeading>
+          <ul className="space-y-4">
+            {recognition.map((item, i) => (
+              <li key={i} className="flex gap-3">
+                <span
+                  aria-hidden="true"
+                  className="mt-[0.7rem] h-1 w-1 shrink-0 rounded-full bg-accent"
+                />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section id="contact" className={section}>
+          <SectionHeading number="06">Contact</SectionHeading>
+          <p className="text-muted">
+            {profile.availability}. Based in {profile.location}.
+          </p>
+          <p className="mt-5">
+            <a href={`mailto:${profile.email}`} className={`font-mono text-lg ${underline}`}>
+              {profile.email}
+            </a>
+          </p>
+          <ul className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-sm">
+            {profileLinks.map((link) => (
+              <li key={link.label}>
+                <ProfileLink link={link} />
+              </li>
+            ))}
+          </ul>
         </section>
       </main>
     </>
